@@ -12,9 +12,7 @@ export class FacebookService {
         FB.init({
           appId: "1886751354891930",
           xfbml: true,
-          status: true,
-          cookie: true,
-          version: 'v2.5'
+          version: 'v2.8'
         });
       };
     }

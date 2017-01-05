@@ -27,12 +27,12 @@ export class AppComponent implements OnInit{
 		 {
 		    if (response.authResponse)
 		     {
-		        FB.api('/me',{fields:'name'}, function(response)
+		        FB.api('/me',{fields:'name,email'}, function(response)
 		         {
 		          	self._ngZone.run(() => {
 				        // self.name = response.name;
 				        // self.isUser = true;
-				        console.log(response.name);
+				        console.log(response);
 			        });
 
 		        });
@@ -40,5 +40,5 @@ export class AppComponent implements OnInit{
 		    else{
 		        console.log('User cancelled login or did not fully authorize.');
 		    }
-		});
+		}, {scope: 'email'});
 }}
