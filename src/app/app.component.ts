@@ -1,12 +1,13 @@
 import { Component, OnInit, NgZone} from '@angular/core';
 import {FacebookService} from './facebook.service';
+import {UserService} from './user.service';
 
 declare const FB:any;
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    providers: [FacebookService]
+    providers: [FacebookService,UserService]
 })
 export class AppComponent implements OnInit{
 	name="";
@@ -14,7 +15,8 @@ export class AppComponent implements OnInit{
 
   	constructor(
   		private _ngZone: NgZone,
-		private _facebookService: FacebookService
+		private _facebookService: FacebookService,
+		private _userservice: UserService
   	){}
 
 	ngOnInit(){
@@ -32,10 +34,15 @@ export class AppComponent implements OnInit{
 		          	self._ngZone.run(() => {
 				        // self.name = response.name;
 				        // self.isUser = true;
+
 				        console.log(response);
 			        });
 
 		        });
+		        this._userservice.postUserData(response.email,response.name)
+		        	.subscribe(data=>console.log("inserted data"),
+		        		error=>console.log(error),
+		        		()=>console.log("completed"));
 		    }
 		    else{
 		        console.log('User cancelled login or did not fully authorize.');
